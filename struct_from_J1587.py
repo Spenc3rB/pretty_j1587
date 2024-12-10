@@ -86,7 +86,7 @@ def get_pids(linesl):
       foundstartpids = True
 
     elif foundstartpids:
-      if re.match(' +[0-9]+[^\.]',line):
+      if re.match(r' +[0-9]+[^\.]',line):
         garbage,pid,meaning = re.split(" {9,}",line)
         pids[pid.strip()] = meaning.strip()
 
@@ -126,7 +126,7 @@ def get_common_sids(linesl):
       foundstartcsids = True
 
     elif foundstartcsids:
-      if re.match(' +[0-9]+[^\.]',line):
+      if re.match(r' +[0-9]+[^\.]',line):
         garbage,sid,meaning = re.split(" {9,}",line)
         common_sids[sid.strip()] = meaning.strip()
 
@@ -143,7 +143,7 @@ def get_sids_for_mids(linesl):
   """ Get the sids that are related to specific mids as a dictionary """
 
   sets = {}
-  regex = ".* SIDs *.*\( *MIDs? *="
+  regex = r".* SIDs *.*\( *MIDs? *="
   for line in linesl:
     if re.match(regex,line):
       group = line.split("(")[0].strip()
@@ -170,7 +170,7 @@ def parse_sids_for_mid_group(group,groupenddemarc,linesl):
       found = True
 
     elif found:
-      if re.match(' +[0-9]+[^\.]',line):
+      if re.match(r' +[0-9]+[^\.]',line):
         try:
           sid,meaning = re.split(" {6,}",line.strip())
           dic[sid] = meaning
@@ -195,7 +195,7 @@ def get_mids_from_1708(lines1708):
         mid = "125"
         meaning = meaning125
     else:
-      m = re.split("\(",line.strip())
+      m = re.split(r"\(",line.strip())
       if len(m) > 1:
         meaning125 = m[1] + " J2497"
 
@@ -393,10 +393,10 @@ def get_pid_fields(linesl):
   for line in line_iter:
 
     try:
-      if re.match('^A\.[0-9]+',line):
+      if re.match(r'^A\.[0-9]+',line):
         line = ""
 
-        while not re.match('^A\.[0-9]+',line.strip()):
+        while not re.match(r'^A\.[0-9]+',line.strip()):
           cont = True
           line = get_next(line_iter)
 
@@ -434,7 +434,7 @@ def get_pid_fields(linesl):
             # Handle bytes/bits here
             bytedef = {}
             line = get_next(line_iter)
-            while not re.match("^[A-F]\.[0-9]+",line.strip()):
+            while not re.match(r"^[A-F]\.[0-9]+",line.strip()):
             #while line.strip():
 
               # Found one case where the "\xe2\x80\x94" character was set as "-"
