@@ -8,7 +8,7 @@ import threading
 import struct_from_J1587 as j1587
 import re, socket, json, logging
 import canon_functions
-from J1708Driver import J1708Driver
+from hv_networks.J1708Driver import J1708Driver
 
 from hv_networks.J1587Driver import J1708DriverFactory, set_j1708_driver_factory, J1587Driver, get_j1708_driver_factory
 
